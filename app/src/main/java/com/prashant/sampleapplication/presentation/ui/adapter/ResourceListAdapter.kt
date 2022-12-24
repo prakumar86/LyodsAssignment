@@ -20,6 +20,7 @@ class ResourceListAdapter(val onClick: (Int?) -> Unit) :
         holder.bind(resourceList.get(position))
     }
 
+
     override fun getItemCount(): Int {
         return resourceList.size
     }
