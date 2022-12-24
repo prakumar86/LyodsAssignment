@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">LlyodsSampleApp</string>
+    <string name="label_resources">Resources</string>
+    <string name="detail_screen">Detail Screen</string>
+</resources>
