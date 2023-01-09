@@ -17,7 +17,7 @@ import com.prashant.sampleapplication.databinding.FragmentHomeBinding
 import com.prashant.sampleapplication.domain.models.ResourceInfo
 import com.prashant.sampleapplication.presentation.ui.adapter.ResourceListAdapter
 import com.prashant.sampleapplication.presentation.viewmodel.HomeViewModel
-import com.prashant.sampleapplication.presentation.viewstate.ViewState
+import com.prashant.sampleapplication.presentation.viewstate.UIState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -63,15 +63,15 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.getResources().collect {
                 when (it) {
-                    is ViewState.Success -> {
+                    is UIState.Success -> {
                         hideLoading()
                         showDataToResourceListView(it.output)
                     }
-                    is ViewState.Failure -> {
+                    is UIState.Failure -> {
                         hideLoading()
                         showException(it.throwable)
                     }
-                    is ViewState.Loading -> {
+                    is UIState.Loading -> {
                         showLoading()
                     }
                 }

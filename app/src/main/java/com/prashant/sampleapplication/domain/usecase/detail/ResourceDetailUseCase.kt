@@ -2,11 +2,16 @@ package com.prashant.sampleapplication.domain.usecase.detail
 
 import com.prashant.sampleapplication.domain.models.BaseResponse
 import com.prashant.sampleapplication.domain.models.ResourceDetailInfo
+import com.prashant.sampleapplication.domain.repository.detail.ResourceDetailRepository
 import kotlinx.coroutines.flow.Flow
-
+import javax.inject.Inject
 /*
-* contract for resource detail use case
+* Implementation class for resource detail usecase contract
 * */
-interface ResourceDetailUseCase {
-    fun getResourceDetail(id: Int): Flow<BaseResponse<ResourceDetailInfo>>
+class ResourceDetailUseCase @Inject constructor(
+    private val getResourceDetailRepository: ResourceDetailRepository
+)  {
+    operator fun invoke(id: Int): Flow<BaseResponse<ResourceDetailInfo>> {
+       return getResourceDetailRepository.getResourceDetail(id)
+    }
 }

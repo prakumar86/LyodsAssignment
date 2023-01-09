@@ -9,16 +9,16 @@ import com.google.gson.annotations.SerializedName
 data class ResourceListResponse(
     @SerializedName("page")
     @Expose
-    val page: Int? = null,
+    val page: Int,
     @SerializedName("per_page")
     @Expose
-    val per_page: Int? = null,
+    val per_page: Int,
     @SerializedName("total")
     @Expose
-    val total: Int? = null,
+    val total: Int?,
     @SerializedName("total_pages")
     @Expose
-    val total_pages: Int? = null,
+    val total_pages: Int,
     @SerializedName("data")
     @Expose
     val data: ArrayList<ResourceResponse>,

@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.prashant.sampleapplication.databinding.FragmentDetailBinding
 import com.prashant.sampleapplication.domain.models.ResourceDetailInfo
 import com.prashant.sampleapplication.presentation.viewmodel.DetailViewModel
-import com.prashant.sampleapplication.presentation.viewstate.ViewState
+import com.prashant.sampleapplication.presentation.viewstate.UIState
 import com.prashant.sampleapplication.utility.AppConstants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -46,15 +46,15 @@ class DetailFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.getResourcesDetail().collect {
                 when (it) {
-                    is ViewState.Success -> {
+                    is UIState.Success -> {
                         hideLoading()
                         showDataToResourceDataView(it.output)
                     }
-                    is ViewState.Failure -> {
+                    is UIState.Failure -> {
                         hideLoading()
                         showException(it.throwable)
                     }
-                    is ViewState.Loading -> {
+                    is UIState.Loading -> {
                         showLoading()
                     }
                 }

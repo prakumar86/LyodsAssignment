@@ -5,7 +5,7 @@ import com.prashant.sampleapplication.CoroutineRuleTest
 import com.prashant.sampleapplication.domain.models.BaseResponse
 import com.prashant.sampleapplication.domain.models.ResourceInfo
 import com.prashant.sampleapplication.domain.repository.home.ResourceListRepository
-import com.prashant.sampleapplication.domain.usecase.home.ResourceListUseCaseImpl
+import com.prashant.sampleapplication.domain.usecase.home.ResourceListUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
@@ -30,7 +30,7 @@ class ResourceListUseCaseTest {
     @Mock
     private lateinit var repository: ResourceListRepository
 
-    private lateinit var useCase: ResourceListUseCaseImpl
+    private lateinit var useCase: ResourceListUseCase
 
 
     @Before
@@ -45,7 +45,7 @@ class ResourceListUseCaseTest {
             emit(BaseResponse.OnSuccess(emptyList<ResourceInfo>()))
         }
         Mockito.`when`(repository.getResourceList()).thenReturn(flow)
-        useCase = ResourceListUseCaseImpl(repository)
+        useCase = ResourceListUseCase(repository)
         val response = useCase.getResourceList().first()
         Assert.assertTrue(response is BaseResponse.OnSuccess<*>)
     }
@@ -57,7 +57,7 @@ class ResourceListUseCaseTest {
             emit(BaseResponse.OnFailure(Throwable("Error")))
         }
         Mockito.`when`(repository.getResourceList()).thenReturn(flow)
-        useCase = ResourceListUseCaseImpl(repository)
+        useCase = ResourceListUseCase(repository)
         val response = useCase.getResourceList().first()
         Assert.assertTrue(response is BaseResponse.OnFailure)
     }

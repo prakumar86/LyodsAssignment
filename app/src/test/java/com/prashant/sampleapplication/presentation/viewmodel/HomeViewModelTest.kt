@@ -4,8 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.prashant.sampleapplication.CoroutineRuleTest
 import com.prashant.sampleapplication.domain.models.BaseResponse
 import com.prashant.sampleapplication.domain.models.ResourceInfo
-import com.prashant.sampleapplication.domain.usecase.home.ResourceListUseCase
-import com.prashant.sampleapplication.presentation.viewstate.ViewState
+import com.prashant.sampleapplication.presentation.viewstate.UIState
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.FlowCollector
@@ -31,7 +30,7 @@ class HomeViewModelTest {
 
     private val mockResourceList: List<ResourceInfo> = mockk()
 
-    private val viewStateObserver: FlowCollector<ViewState<List<ResourceInfo>>> = mockk()
+    private val viewStateObserver: FlowCollector<UIState<List<ResourceInfo>>> = mockk()
 
     private val mockException: Exception = mockk()
 
@@ -67,9 +66,9 @@ class HomeViewModelTest {
             verify {
                 with(viewStateObserver) {
                     runBlockingTest {
-                        emit(ViewState.Loading(true))
-                        emit(ViewState.Success(mockResourceList))
-                        emit(ViewState.Loading(false))
+                        emit(UIState.Loading(true))
+                        emit(UIState.Success(mockResourceList))
+                        emit(UIState.Loading(false))
                     }
                 }
             }
@@ -87,9 +86,9 @@ class HomeViewModelTest {
             verify {
                 with(viewStateObserver) {
                     runBlockingTest {
-                        emit(ViewState.Loading(true))
-                        emit(ViewState.Failure(mockException))
-                        emit(ViewState.Loading(false))
+                        emit(UIState.Loading(true))
+                        emit(UIState.Failure(mockException))
+                        emit(UIState.Loading(false))
                     }
                 }
             }

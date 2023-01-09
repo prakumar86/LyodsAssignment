@@ -1,4 +1,4 @@
-package com.prashant.sampleapplication.data.mapper
+package com.prashant.sampleapplication.domain.mapper
 
 import com.prashant.sampleapplication.data.response.ResourceDetailResponse
 import com.prashant.sampleapplication.domain.models.ResourceDetailInfo

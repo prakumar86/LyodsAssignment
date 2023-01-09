@@ -5,8 +5,7 @@ import androidx.lifecycle.Observer
 import com.prashant.sampleapplication.CoroutineRuleTest
 import com.prashant.sampleapplication.domain.models.BaseResponse
 import com.prashant.sampleapplication.domain.models.ResourceDetailInfo
-import com.prashant.sampleapplication.domain.usecase.detail.ResourceDetailUseCase
-import com.prashant.sampleapplication.presentation.viewstate.ViewState
+import com.prashant.sampleapplication.presentation.viewstate.UIState
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -31,7 +30,7 @@ class DetailViewModelTest {
 
     private val mockUserDetail: ResourceDetailInfo = mockk()
 
-    private val viewStateObserver: Observer<ViewState<ResourceDetailInfo>> = mockk()
+    private val viewStateObserver: Observer<UIState<ResourceDetailInfo>> = mockk()
 
     private val mockException: Exception = mockk()
 
@@ -66,9 +65,9 @@ class DetailViewModelTest {
 
             verifyOrder {
                 with(viewStateObserver) {
-                    onChanged(ViewState.Loading(true))
-                    onChanged(ViewState.Success(user))
-                    onChanged(ViewState.Loading(false))
+                    onChanged(UIState.Loading(true))
+                    onChanged(UIState.Success(user))
+                    onChanged(UIState.Loading(false))
                 }
             }
         }
@@ -84,9 +83,9 @@ class DetailViewModelTest {
             viewModel.getResourceDetail(1)
 
             verifyOrder {
-                viewStateObserver.onChanged(ViewState.Loading(true))
-                viewStateObserver.onChanged(ViewState.Failure(mockException))
-                viewStateObserver.onChanged(ViewState.Loading(false))
+                viewStateObserver.onChanged(UIState.Loading(true))
+                viewStateObserver.onChanged(UIState.Failure(mockException))
+                viewStateObserver.onChanged(UIState.Loading(false))
             }
         }
     }

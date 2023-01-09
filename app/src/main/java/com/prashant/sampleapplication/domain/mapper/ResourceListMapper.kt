@@ -1,4 +1,4 @@
-package com.prashant.sampleapplication.data.mapper
+package com.prashant.sampleapplication.domain.mapper
 
 import com.prashant.sampleapplication.data.response.ResourceListResponse
 import com.prashant.sampleapplication.domain.models.ResourceInfo
@@ -7,7 +7,7 @@ import com.prashant.sampleapplication.domain.models.ResourceInfo
 * */
 class ResourceListMapper {
     fun mapResources(responseData: ResourceListResponse): List<ResourceInfo> {
-        return responseData.data?.map { resourceResponse -> with(resourceResponse) {
+        return responseData.data.map { resourceResponse -> with(resourceResponse) {
             ResourceInfo(
                 id= id,
                 name=name,

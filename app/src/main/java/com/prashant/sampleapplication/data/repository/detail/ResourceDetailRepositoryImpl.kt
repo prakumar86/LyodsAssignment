@@ -1,6 +1,6 @@
 package com.prashant.sampleapplication.data.repository.detail
 
-import com.prashant.sampleapplication.data.mapper.ResourceDetailMapper
+import com.prashant.sampleapplication.domain.mapper.ResourceDetailMapper
 import com.prashant.sampleapplication.data.repository.IApiService
 import com.prashant.sampleapplication.domain.models.BaseResponse
 import com.prashant.sampleapplication.domain.models.ResourceDetailInfo

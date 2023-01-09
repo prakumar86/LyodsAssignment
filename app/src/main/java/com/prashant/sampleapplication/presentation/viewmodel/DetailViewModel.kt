@@ -4,14 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.prashant.sampleapplication.domain.models.BaseResponse
 import com.prashant.sampleapplication.domain.models.ResourceDetailInfo
-import com.prashant.sampleapplication.domain.models.ResourceInfo
 import com.prashant.sampleapplication.domain.usecase.detail.ResourceDetailUseCase
-import com.prashant.sampleapplication.presentation.viewstate.ViewState
+import com.prashant.sampleapplication.presentation.viewstate.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 /*
@@ -23,21 +22,21 @@ class DetailViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val resourceDetailFlow =
-        MutableStateFlow<ViewState<ResourceDetailInfo>>(ViewState.Loading(true))
+        MutableStateFlow<UIState<ResourceDetailInfo>>(UIState.Loading(true))
 
-    fun getResourcesDetail(): StateFlow<ViewState<ResourceDetailInfo>> = resourceDetailFlow
+    fun getResourcesDetail(): StateFlow<UIState<ResourceDetailInfo>> = resourceDetailFlow
 
     fun getResourceDetail(id: Int) {
         viewModelScope.launch {
-            getResourceDetailUseCase.getResourceDetail(id).collect {
+            getResourceDetailUseCase(id).collect {
                 when (it) {
                     is BaseResponse.OnSuccess -> {
                             it.data.let { resource ->
-                                resourceDetailFlow.value= ViewState.Success(resource)
+                                resourceDetailFlow.value= UIState.Success(resource)
                             }
                     }
                     is BaseResponse.OnFailure ->{
-                        resourceDetailFlow.value= ViewState.Failure(it.throwable)
+                        resourceDetailFlow.value= UIState.Failure(it.throwable)
                     }
                 }
             }

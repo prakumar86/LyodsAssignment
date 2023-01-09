@@ -9,17 +9,17 @@ import com.google.gson.annotations.SerializedName
 data class ResourceDetail (
     @SerializedName("id")
     @Expose
-    val id: Int? = null,
+    val id: Int,
     @SerializedName("name")
     @Expose
-    val name: String? = null,
+    val name: String,
     @SerializedName("year")
     @Expose
-    val year: Int? = null,
+    val year: Int,
     @SerializedName("color")
     @Expose
-    val color: String? = null,
+    val color: String,
     @SerializedName("pantone_value")
     @Expose
-    val pantone_value: String? = null,
+    val pantone_value: String,
         )

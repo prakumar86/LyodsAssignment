@@ -5,12 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.prashant.sampleapplication.domain.models.ResourceInfo
 import com.prashant.sampleapplication.domain.models.BaseResponse
 import com.prashant.sampleapplication.domain.usecase.home.ResourceListUseCase
-import com.prashant.sampleapplication.presentation.viewstate.ViewState
+import com.prashant.sampleapplication.presentation.viewstate.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 /*
@@ -21,20 +21,21 @@ class HomeViewModel @Inject constructor(
     private val getResourceListUseCase: ResourceListUseCase
 ) : ViewModel() {
     private val resourceListFlow =
-        MutableStateFlow<ViewState<List<ResourceInfo>>>(ViewState.Loading(true))
+        MutableStateFlow<UIState<List<ResourceInfo>>>(UIState.Loading(true))
 
-    fun getResources(): StateFlow<ViewState<List<ResourceInfo>>> = resourceListFlow
+    fun getResources(): StateFlow<UIState<List<ResourceInfo>>> = resourceListFlow
+
     fun fetchResourcesFromApi() {
         viewModelScope.launch {
-            getResourceListUseCase.getResourceList().collect {
+            getResourceListUseCase().collect {
                 when (it) {
                     is BaseResponse.OnSuccess -> {
                         it.data.let { resources ->
-                            resourceListFlow.value = ViewState.Success(resources)
+                            resourceListFlow.value = UIState.Success(resources)
                         }
                     }
                     is BaseResponse.OnFailure -> {
-                           resourceListFlow.value=ViewState.Failure(it.throwable)
+                           resourceListFlow.value=UIState.Failure(it.throwable)
                     }
                 }
             }

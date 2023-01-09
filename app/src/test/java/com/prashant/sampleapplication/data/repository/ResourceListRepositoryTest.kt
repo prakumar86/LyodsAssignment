@@ -1,7 +1,7 @@
 package com.prashant.sampleapplication.data.repository
 
 import com.prashant.sampleapplication.CoroutineRuleTest
-import com.prashant.sampleapplication.data.mapper.ResourceListMapper
+import com.prashant.sampleapplication.domain.mapper.ResourceListMapper
 import com.prashant.sampleapplication.data.repository.home.ResourceListRepositoryImpl
 import com.prashant.sampleapplication.data.response.ResourceListResponse
 import com.prashant.sampleapplication.domain.repository.home.ResourceListRepository
