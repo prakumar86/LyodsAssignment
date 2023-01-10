@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import com.prashant.sampleapplication.CoroutineRuleTest
 import com.prashant.sampleapplication.domain.models.BaseResponse
 import com.prashant.sampleapplication.domain.models.ResourceDetailInfo
+import com.prashant.sampleapplication.domain.usecase.detail.ResourceDetailUseCase
 import com.prashant.sampleapplication.presentation.viewstate.UIState
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -59,7 +60,7 @@ class DetailViewModelTest {
     fun `WHEN getUserDetail called THEN succes should called in sequence`() {
         runBlockingTest {
             val user: ResourceDetailInfo = mockk()
-            coEvery { mockUseCase.getResourceDetail(1) } returns fakeSuccessFlow
+            coEvery { mockUseCase.invoke(1) } returns fakeSuccessFlow
             launch { viewModel.getResourcesDetail().collect { viewStateObserver } }
             viewModel.getResourceDetail(1)
 
@@ -78,7 +79,7 @@ class DetailViewModelTest {
     fun `WHEN network failure called THEN failure should called`(){
 
         runBlockingTest {
-            coEvery { mockUseCase.getResourceDetail(1) } returns fakeFailureFlow
+            coEvery { mockUseCase.invoke(1) } returns fakeFailureFlow
             launch { viewModel.getResourcesDetail().collect { viewStateObserver } }
             viewModel.getResourceDetail(1)
 

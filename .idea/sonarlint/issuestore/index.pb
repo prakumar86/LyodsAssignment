@@ -21,8 +21,6 @@ Yapp/src/test/java/com/prashant/sampleapplication/presentation/viewmodel/MockFil
 ^app/src/test/java/com/prashant/sampleapplication/data/repository/ResourceListRepositoryTest.kt,e/5/e52895b74616689edfb7e7ec92fe7039baca1366
 ê
 `app/src/test/java/com/prashant/sampleapplication/data/repository/ResourceDetailRepositoryTest.kt,0/e/0ef13702296558495d42bcc0b0c67d2ed91eda63
-å
-\app/src/test/java/com/prashant/sampleapplication/domain/usecase/ResourceDetailUseCaseTest.kt,8/5/85ebdbbbcac0164df3082261e141a25f1a5d2654
 ä
 Zapp/src/test/java/com/prashant/sampleapplication/domain/usecase/ResourceListUseCaseTest.kt,a/d/adb2847b7b287f3964abbb0738280e4f6debff06
 
