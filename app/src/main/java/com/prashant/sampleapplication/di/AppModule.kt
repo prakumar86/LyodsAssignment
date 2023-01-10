@@ -20,19 +20,12 @@ import dagger.hilt.android.components.ViewModelComponent
 @Module
 @InstallIn(ViewModelComponent::class)
 class AppModule {
-    @Provides
-    fun provideResourceListUseCase(apiservice: IApiService): ResourceListUseCase =
-        ResourceListUseCase(provideResourceListRepository(apiservice))
 
     @Provides
     fun provideResourceListRepository(apiservice: IApiService): ResourceListRepository =
         ResourceListRepositoryImpl(apiservice, provideResourceListMapper())
 
     private fun provideResourceListMapper(): ResourceListMapper = ResourceListMapper()
-
-    @Provides
-    fun provideResourceDetailUseCase(apiservice: IApiService): ResourceDetailUseCase =
-        ResourceDetailUseCase(provideResourceDetailRepository(apiservice))
 
     @Provides
     fun provideResourceDetailRepository(apiservice: IApiService): ResourceDetailRepository =
