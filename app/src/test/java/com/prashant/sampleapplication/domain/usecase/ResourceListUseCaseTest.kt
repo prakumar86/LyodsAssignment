@@ -46,7 +46,7 @@ class ResourceListUseCaseTest {
         }
         Mockito.`when`(repository.getResourceList()).thenReturn(flow)
         useCase = ResourceListUseCase(repository)
-        val response = useCase.getResourceList().first()
+        val response = useCase.invoke().first()
         Assert.assertTrue(response is BaseResponse.OnSuccess<*>)
     }
 
@@ -58,7 +58,7 @@ class ResourceListUseCaseTest {
         }
         Mockito.`when`(repository.getResourceList()).thenReturn(flow)
         useCase = ResourceListUseCase(repository)
-        val response = useCase.getResourceList().first()
+        val response = useCase.invoke().first()
         Assert.assertTrue(response is BaseResponse.OnFailure)
     }
 }

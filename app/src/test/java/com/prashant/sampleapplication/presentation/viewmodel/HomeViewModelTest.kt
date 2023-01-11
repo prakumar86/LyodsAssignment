@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.prashant.sampleapplication.CoroutineRuleTest
 import com.prashant.sampleapplication.domain.models.BaseResponse
 import com.prashant.sampleapplication.domain.models.ResourceInfo
+import com.prashant.sampleapplication.domain.usecase.home.ResourceListUseCase
 import com.prashant.sampleapplication.presentation.viewstate.UIState
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -58,7 +59,7 @@ class HomeViewModelTest {
     @Test
     fun `WHEN getAllListData called THEN succes should called in sequence`() {
         runBlockingTest {
-            coEvery { mockUseCase.getResourceList() } returns fakeSuccessFlow
+            coEvery { mockUseCase.invoke() } returns fakeSuccessFlow
             launch {  viewModel.getResources().collect { viewStateObserver } }
             viewModel.fetchResourcesFromApi()
 
@@ -79,7 +80,7 @@ class HomeViewModelTest {
     @Test
     fun `WHEN network failure called THEN failure should called`() {
         runBlockingTest {
-            coEvery { mockUseCase.getResourceList() } returns fakeFailureFlow
+            coEvery { mockUseCase.invoke() } returns fakeFailureFlow
             launch { viewModel.getResources().collect { viewStateObserver } }
             viewModel.fetchResourcesFromApi()
 
