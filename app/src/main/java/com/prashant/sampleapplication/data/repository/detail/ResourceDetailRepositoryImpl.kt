@@ -5,8 +5,10 @@ import com.prashant.sampleapplication.data.repository.IApiService
 import com.prashant.sampleapplication.domain.models.BaseResponse
 import com.prashant.sampleapplication.domain.models.ResourceDetailInfo
 import com.prashant.sampleapplication.domain.repository.detail.ResourceDetailRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 /*
@@ -25,6 +27,6 @@ class ResourceDetailRepositoryImpl @Inject constructor(
             } catch (e: Exception) {
                 emit(BaseResponse.OnFailure(e))
             }
-        }
+        }.flowOn(Dispatchers.IO)
     }
 }
