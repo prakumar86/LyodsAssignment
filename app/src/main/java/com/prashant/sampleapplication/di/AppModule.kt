@@ -1,18 +1,22 @@
 package com.prashant.sampleapplication.di
 
-import com.prashant.sampleapplication.domain.mapper.ResourceDetailMapper
+import com.prashant.sampleapplication.data.mapper.ResourceDetailMapper
 import com.prashant.sampleapplication.data.repository.IApiService
 import com.prashant.sampleapplication.data.repository.detail.ResourceDetailRepositoryImpl
 import com.prashant.sampleapplication.data.repository.home.ResourceListRepositoryImpl
-import com.prashant.sampleapplication.domain.mapper.ResourceListMapper
+import com.prashant.sampleapplication.data.mapper.ResourceListMapper
+import com.prashant.sampleapplication.data.response.ResourceDetailResponse
+import com.prashant.sampleapplication.data.response.ResourceListResponse
+import com.prashant.sampleapplication.domain.mapper.IMapperService
+import com.prashant.sampleapplication.domain.models.ResourceDetailInfo
+import com.prashant.sampleapplication.domain.models.ResourceInfo
 import com.prashant.sampleapplication.domain.repository.detail.ResourceDetailRepository
 import com.prashant.sampleapplication.domain.repository.home.ResourceListRepository
-import com.prashant.sampleapplication.domain.usecase.detail.ResourceDetailUseCase
-import com.prashant.sampleapplication.domain.usecase.home.ResourceListUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import kotlinx.coroutines.CoroutineDispatcher
 
 /*
 * module to provide all the objects require to detail screen
@@ -22,14 +26,22 @@ import dagger.hilt.android.components.ViewModelComponent
 class AppModule {
 
     @Provides
-    fun provideResourceListRepository(apiservice: IApiService): ResourceListRepository =
-        ResourceListRepositoryImpl(apiservice, provideResourceListMapper())
+    fun provideResourceListRepository(
+        apiservice: IApiService,
+        ioDispatcher: CoroutineDispatcher
+    ): ResourceListRepository =
+        ResourceListRepositoryImpl(apiservice, provideResourceListMapper(), ioDispatcher)
 
-    private fun provideResourceListMapper(): ResourceListMapper = ResourceListMapper()
+    private fun provideResourceListMapper(): IMapperService<ResourceListResponse, List<ResourceInfo>> =
+        ResourceListMapper()
 
     @Provides
-    fun provideResourceDetailRepository(apiservice: IApiService): ResourceDetailRepository =
-        ResourceDetailRepositoryImpl(apiservice, provideResourceDetailMapper())
+    fun provideResourceDetailRepository(
+        apiservice: IApiService,
+        ioDispatcher: CoroutineDispatcher
+    ): ResourceDetailRepository =
+        ResourceDetailRepositoryImpl(apiservice, provideResourceDetailMapper(), ioDispatcher)
 
-    private fun provideResourceDetailMapper(): ResourceDetailMapper = ResourceDetailMapper()
+    private fun provideResourceDetailMapper(): IMapperService<ResourceDetailResponse, ResourceDetailInfo> =
+        ResourceDetailMapper()
 }

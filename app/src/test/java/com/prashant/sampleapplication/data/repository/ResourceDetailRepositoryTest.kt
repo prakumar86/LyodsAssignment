@@ -1,7 +1,7 @@
 package com.prashant.sampleapplication.data.repository
 
 import com.prashant.sampleapplication.CoroutineRuleTest
-import com.prashant.sampleapplication.domain.mapper.ResourceDetailMapper
+import com.prashant.sampleapplication.data.mapper.ResourceDetailMapper
 import com.prashant.sampleapplication.data.response.ResourceDetailResponse
 import com.prashant.sampleapplication.domain.models.ResourceDetailInfo
 import com.prashant.sampleapplication.domain.repository.detail.ResourceDetailRepository
@@ -11,7 +11,6 @@ import io.mockk.mockk
 import junit.framework.TestCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Rule
 import org.junit.Test
